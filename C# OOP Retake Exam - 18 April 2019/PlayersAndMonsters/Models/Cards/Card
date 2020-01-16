@@ -1,0 +1,58 @@
+﻿namespace PlayersAndMonsters.Models.Cards
+{
+    using Common;
+    using Contracts;
+
+    public abstract class Card:ICard
+    {
+        private string _name;
+        private int _damagePoints;
+        private int _healthPoints;
+
+        protected Card(string name, int damagePoints, int healthPoints)
+        {
+            Name = name;
+            DamagePoints = damagePoints;
+            HealthPoints = healthPoints;
+        }
+
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            private set
+            {
+                Validator.ThrowIfStringIsNullOrEmpty(
+                    value, "Card's name cannot be null or an empty string.");
+                
+                _name = value;
+            }
+        }
+
+        public int DamagePoints
+        {
+            get { return _damagePoints; }
+            set
+            {
+                Validator.ThrowIfNumberIsOrNegative(value
+                    , "Card's damage points cannot be less than zero.");
+                
+                _damagePoints = value;
+            }
+        }
+
+        public int HealthPoints
+        {
+            get { return _healthPoints; }
+            set
+            {
+                Validator.ThrowIfNumberIsOrNegative(value
+                    , "Card's HP cannot be less than zero.");
+                
+                _healthPoints = value;
+            }
+        }
+    }
+}
